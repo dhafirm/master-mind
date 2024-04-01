@@ -15,12 +15,16 @@ function App() {
 
   return (
     <div className="App">
-     <h1>Hello master mind!</h1>
+     <h1>Master Mind!</h1>
      <div className='center'>
         <span>
           <h2>Code</h2> <button onClick={toggleCodeState}>{showCode? 'Hide':'Show'}</button>
-        </span>        
-        {showCode &&  <Code />  }               
+        </span>  
+        <div style={{"backgroundColor":"black", "height":"50px", "width":"190px", "marginTop":"20px", "padding":"20px"}} >
+          <div style={{display:showCode? 'block':'none'}}>
+           <Code />  
+          </div>          
+        </div>
      </div>
     </div>
   );
