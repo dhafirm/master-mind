@@ -5,10 +5,10 @@ import ColourSelector from './ColourSelector';
 
 function Code() {
    
-   const [selectedColour1, setSelectedColour1] = useState(COLOUR.red);
-   const [selectedColour2, setSelectedColour2] = useState(COLOUR.red);
-   const [selectedColour3, setSelectedColour3] = useState(COLOUR.red);
-   const [selectedColour4, setSelectedColour4] = useState(COLOUR.red);
+   const [selectedColour1, setSelectedColour1] = useState(COLOUR.cyan);
+   const [selectedColour2, setSelectedColour2] = useState(COLOUR.cyan);
+   const [selectedColour3, setSelectedColour3] = useState(COLOUR.cyan);
+   const [selectedColour4, setSelectedColour4] = useState(COLOUR.cyan);
     
 
     const currentColour1 = (colour) => {
@@ -29,21 +29,20 @@ function Code() {
 
   return (
     <div>  
-      <div className='container'>        
-        <p style={{"float": "center"}}>
-        <div className='box'>
-          <ColourSelector defaultColour={selectedColour1} currentColour={currentColour1} />
-        </div>
-        <div className='box'>
-          <ColourSelector defaultColour={selectedColour2} currentColour={currentColour2} />
-        </div>
-        <div className='box'>
-          <ColourSelector defaultColour={selectedColour3} currentColour={currentColour3} />
-        </div>
-        <div className='box'>
-          <ColourSelector defaultColour={selectedColour4} currentColour={currentColour4} />
-        </div>
-        
+      <div className='container1'>        
+        <p style={{"float": "center1"}}>
+            <div className='box'>
+            <ColourSelector defaultColour={selectedColour1} currentColour={currentColour1} />
+            </div>
+            <div className='box'>
+            <ColourSelector defaultColour={selectedColour2} currentColour={currentColour2} />
+            </div>
+            <div className='box'>
+            <ColourSelector defaultColour={selectedColour3} currentColour={currentColour3} />
+            </div>
+            <div className='box'>
+            <ColourSelector defaultColour={selectedColour4} currentColour={currentColour4} />
+            </div>        
         </p>
       </div>        
     </div>

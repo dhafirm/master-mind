@@ -7,7 +7,7 @@ const ColourBox = ({colour, setSelected}) => {
     };
 
     return (
-        <div >           
+        <div>           
             {/* Rectangle representation */}           
             <div className="box"
                 onClick={handleClick}   
