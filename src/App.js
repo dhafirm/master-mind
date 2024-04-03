@@ -1,21 +1,39 @@
 
 import './App.css';
-import React, {useState} from 'react';
+import React, {useState, createContext} from 'react';
+import COLOUR from './constants'
 
 import Code from './components/Code';
-import BreakingAttempt from "./components/BreakingAttempt"
+import GuessAttempt from "./components/GuessAttempt"
+
+const initialCodeSelection = [COLOUR.cyan,COLOUR.cyan,COLOUR.cyan,COLOUR.cyan];
+export const AppContext = createContext();
 
 function App() {
-   
-  const [showCode, setShowCode] = useState(true);
-   
+     
+  const [showCode, setShowCode] = useState(true);   
+  const [codeSelection, setCodeSelection] = useState(initialCodeSelection);   
+
   const toggleCodeState = () => {    
     setShowCode(!showCode)    
   }
 
-  return (
-    <div className="App">
+  const repeatedComponents = Array.from({ length: 12 }, (value, index) => (
+    <GuessAttempt key={index} />
+  ));
+
+
+  const updateCodeSelection = (index, newColour) => {
+      const newCodeSelection = [...codeSelection];
+      newCodeSelection[index] = newColour;
+      setCodeSelection(newCodeSelection);
+  }
+
+  return (    
+
+    <div className="App">  
      <h1>Master Mind!</h1>
+     <AppContext.Provider value={{codeSelection, updateCodeSelection}}>
      <div className='center'>
         <span>
           <h2>Code</h2> 
@@ -28,12 +46,11 @@ function App() {
         </div>
         <h3>Breaking Attempts</h3>   
         <span style={{"marginRight":"350px"}}>Right Place</span><span>Wrong Place</span>
-        <BreakingAttempt />
-        <BreakingAttempt />
-        <BreakingAttempt />
-        <BreakingAttempt />
-        <BreakingAttempt />
+        
+        {repeatedComponents}
+
      </div>
+     </AppContext.Provider>
     </div>
   );
 }
