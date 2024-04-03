@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import ColourBox from './ColourBox';
 import ColourPallet from './ColourPallet';
+import ColourCircle from './ColourCircle';
 
 
  const ColourSelector = function({defaultColour, index, updateColourSelection}) {
@@ -22,7 +23,7 @@ import ColourPallet from './ColourPallet';
 
   return (
     <div>                  
-      <ColourBox colour={selectedColour} setSelected={openModal} />             
+      <ColourCircle colour={selectedColour} setSelected={openModal} />             
       <ColourPallet isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );

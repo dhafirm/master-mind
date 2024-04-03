@@ -81,7 +81,7 @@
   width: fit-content; /* Optionally, you can use fit-content to make the div width adjust to its content */
 }
 .code-container {
-  background-color:#534666;
+  background-color:#ae7171;
 
   width: 100%; /* Or specify a width as needed */
   height: 80px; /* Or specify a height as needed */
@@ -120,5 +120,18 @@
   height: 36px;
   margin-top: 16px;
   margin-left: 7px;
-  
+  background-color: #007bff;
+  color: #ccc;
+}
+
+.check:disabled {
+  height: 36px;
+  margin-top: 16px;
+  margin-left: 7px;
+  background-color: #6c757d;
+  color: #ced4da;
+}
+
+.transparent {  
+  background-color: rgba(0, 0, 0, 0.15); /* Transparent black color (50% opacity) */  
 }

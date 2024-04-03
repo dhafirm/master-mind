@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import COLOUR from "../constants"
+import {COLOUR} from "../constants"
 import ColourSelector from './ColourSelector';
 
 
@@ -11,7 +11,7 @@ const Guess = ({updateCodeSelection}) => {
 
   return (
     <div>  
-      <div className='container'>      
+      <div className='container' >      
         
         <p style={{"float": "center"}}>
             <div className='box'>

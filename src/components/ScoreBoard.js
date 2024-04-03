@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import COLOUR from "../constants"
+import {COLOUR} from "../constants"
 import ColourBox from "./ColourBox"
 
 const ScoreBoard = ({ score }) => {    
