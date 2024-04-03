@@ -1,27 +1,33 @@
-import COLOUR from "../constants"
-import Code from "./Code"
+import {COLOUR} from "../constants"
 import ScoreBoard from "./ScoreBoard"
 import Guess from "./Guess"
 import {useState, useContext} from 'react'
 import { AppContext } from "../App"
+import Bingo from "./Bingo"
 
 const initialWhiteScore = [ null,null,null,null];
 const initialRedScore = [null,null,null,null];
 const initialGuessedColour = [null,null,null,null];
 
-const GuessAttempt = () => {
+const GuessAttempt = ({index}) => {
 
     const [whiteScore, setWhiteScore] = useState(initialWhiteScore);
-    const [redScore, setRedScore] = useState(initialRedScore);
+    const [redScore, setRedScore] = useState(initialRedScore);    
     const [guessedColour, setGuessedColour] = useState(initialGuessedColour);
+    const [canCheckGuess, setCanCheckGuess] = useState(false);
+    const [canGuess, setCanGuess] = useState(true);
+    const [isBingoOpen, setIsBingoOpen] = useState(false);
 
-    const {codeSelection} = useContext(AppContext);
+    const {codeSelection,cracked} = useContext(AppContext);
 
 
     const updateCodeSelection = (index, newColour) => {
         const newGusssedColour = [...guessedColour];
         newGusssedColour[index] = newColour;
         setGuessedColour(newGusssedColour);
+        const canCheck = codeSelection.indexOf(null) == -1 && 
+                         newGusssedColour.indexOf(null) == -1;
+        setCanCheckGuess(canCheck);
     }
 
     const checkAttempt = (e) => {
@@ -39,22 +45,35 @@ const GuessAttempt = () => {
             if(j == -1){
                 continue;
             } else {
-                newWhiteScore[whiteIndex++] = COLOUR.white;
+                newWhiteScore[whiteIndex++] = COLOUR.black;
             }
         }
 
         setWhiteScore(newWhiteScore);
         setRedScore(newRedScore);
+        setCanGuess(false);
+        if(redIndex < 0) {
+            setIsBingoOpen(true);    
+            cracked();
+        }
+    }
+
+    const closeBingo = () => {
+        setIsBingoOpen(false);
     }
 
     return (        
         <div className='horiz-container'>                                               
-            <button className="check"  onClick={checkAttempt}>Check</button>
+            <button className="check"  onClick={checkAttempt} disabled={!canCheckGuess || !canGuess}>
+                {canGuess?"Score":"Done"}
+            </button>
+
             <ScoreBoard score = {redScore}/>              
             <div style={{paddingLeft:17}}>
-            <Guess updateCodeSelection={updateCodeSelection}/>                              
+            <Guess updateCodeSelection={updateCodeSelection} />                              
             </div>     
-            <ScoreBoard score = {whiteScore}/>                     
+            <ScoreBoard score = {whiteScore}/>   
+            <Bingo isOpen={isBingoOpen}   onClose={closeBingo} />
         </div>
     )
 }

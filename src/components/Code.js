@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import COLOUR from "../constants"
+import {COLOUR} from "../constants"
 import ColourSelector from './ColourSelector';
 import {useContext} from 'react';
 import {AppContext} from '../App';
