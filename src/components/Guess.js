@@ -1,13 +1,10 @@
-
 import React, { useState } from 'react';
 import COLOUR from "../constants"
 import ColourSelector from './ColourSelector';
-import {useContext} from 'react';
-import {AppContext} from '../App';
 
-function Code() {
-    const {updateCodeSelection} = useContext(AppContext);
 
+const Guess = ({updateCodeSelection}) => {   
+   
     const doUpdateCodeSelection = (index, newCode) => {
         updateCodeSelection(index, newCode);
     }
@@ -35,4 +32,4 @@ function Code() {
   );
 }
 
-export default Code;
+export default Guess;
