@@ -76,7 +76,7 @@ const GuessAttempt = ({index}) => {
 
     return (        
         <div className='horiz-container'>                                               
-            <button className="check"  onClick={checkAttempt} disabled={!canCheckGuess || !canGuess}>
+            <button className="primary"  onClick={checkAttempt} disabled={!canCheckGuess || !canGuess}>
                 {canGuess?"Score":"Done"}
             </button>
 
