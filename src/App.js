@@ -5,24 +5,26 @@ import {COLOUR,CODE_COLOURS} from './constants'
 
 import Code from './components/Code';
 import GuessAttempt from "./components/GuessAttempt"
-import Circle from './components/Circle';
+import BreakingAttempts from './components/BreakingAttempts';
+import ColourCircle from './components/ColourCircle';
 
-const initialCodeSelection = [COLOUR.cyan,COLOUR.cyan,COLOUR.cyan,COLOUR.cyan];
+const initialCodeSelection = [COLOUR.grey,COLOUR.grey,COLOUR.grey,COLOUR.grey];
 export const AppContext = createContext();
 
+const SHADOW_COL = "#636b8d";
 function App() {
-     
-  const [showCode, setShowCode] = useState(true);   
+      
   const [codeSelection, setCodeSelection] = useState(initialCodeSelection);   
-
-  const toggleCodeState = () => {    
-    setShowCode(!showCode)    
+  const [gameOn, setGameOn] = useState(false);
+  
+  const startAnotherPlayer = () => {    
+    setGameOn(true);
   }
 
-  const repeatedComponents = Array.from({ length: 12 }, (value, index) => (
-    <GuessAttempt key={index} />
-  ));
-
+  const startWithComputer = () => {
+    generateCode();
+    setGameOn(true);    
+  }
 
   const updateCodeSelection = (index, newColour) => {
       const newCodeSelection = [...codeSelection];
@@ -31,41 +33,52 @@ function App() {
   }
 
   const cracked = () => {
-    setShowCode(true);
-  }
+    setGameOn(false);    
+  }  
 
   const generateCode = () => {
     const newCodeSelection = [...codeSelection];
-    newCodeSelection[0] = CODE_COLOURS[ Math.floor(Math.random() * (9))];
-    newCodeSelection[1] = CODE_COLOURS[ Math.floor(Math.random() * (9))];
-    newCodeSelection[2] = CODE_COLOURS[ Math.floor(Math.random() * (9))];
-    newCodeSelection[3] = CODE_COLOURS[ Math.floor(Math.random() * (9))];
-    setCodeSelection(newCodeSelection); 
+    
+    for(let i=0; i < 4; i++) {
+      newCodeSelection[i] = getRandomColour();
+    }
+    
+    setCodeSelection(newCodeSelection);     
   }
 
+  const getRandomColour = () => {
+    let index = Math.floor(Math.random() * (8));
+    return CODE_COLOURS[index];
+  }
 
+ 
   return (    
 
     <div className="App">  
      <h1>Master Mind!</h1>     
-     <AppContext.Provider value={{codeSelection, updateCodeSelection, cracked}}>
-     <div className='center'>
-        <span>
-          <h2 style={{color:"red"}}>Code</h2> 
-          <button onClick={toggleCodeState}>{showCode? ' Start ':'Give up!'}</button>
-          {/* <button onClick={generateCode}>Generate</button> */}
-        </span>  
-        <div className = 'code-container' >
-          <div className='centered' style={{display:showCode? 'flex':'none', "marginLeft":58}}>            
-           <Code />  
+     <AppContext.Provider value={{codeSelection, updateCodeSelection, cracked, gameOn}}>
+      <div className='center'>
+          <span>
+            <h2 style={{color:"red"}}>Code</h2> 
+            <button onClick={startAnotherPlayer} style={{display:gameOn? 'none':'inline'}}>Another Player</button>           
+            <button onClick={startWithComputer} style={{display:gameOn? 'none':'inline', marginLeft:50}}>Play with Computer</button>
+            <button onClick={() => setGameOn(false)} style={{display:gameOn? 'inline':'none'}}>I give up!</button>
+          </span>  
+          <div className = 'code-container' >
+            <div className='centered' style={{display:gameOn? 'none':'flex', "marginLeft":50}}>            
+              <Code />  
+            </div>                
+            
+            <div className='centered' style={{display:!gameOn? 'none':'flex', "marginLeft":50}}> 
+              <ColourCircle colour={SHADOW_COL} />    
+              <ColourCircle colour={SHADOW_COL} />    
+              <ColourCircle colour={SHADOW_COL} />    
+              <ColourCircle colour={SHADOW_COL} />    
+            </div>     
           </div>          
-        </div>
-        <h3>Breaking Attempts</h3>   
-        <span style={{"marginRight":"350px"}}>Right Place</span><span>Wrong Place</span>
-        
-        {repeatedComponents}
-
-     </div>
+          
+          <BreakingAttempts gameOn={gameOn}/>
+      </div>
      </AppContext.Provider>
     </div>
   );

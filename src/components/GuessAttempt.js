@@ -1,13 +1,13 @@
 import {COLOUR} from "../constants"
 import ScoreBoard from "./ScoreBoard"
 import Guess from "./Guess"
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
 import { AppContext } from "../App"
 import Bingo from "./Bingo"
 
 const initialWhiteScore = [ null,null,null,null];
 const initialRedScore = [null,null,null,null];
-const initialGuessedColour = [null,null,null,null];
+const initialGuessedColour = [COLOUR.grey,COLOUR.grey,COLOUR.grey,COLOUR.grey];
 
 const GuessAttempt = ({index}) => {
 
@@ -18,7 +18,7 @@ const GuessAttempt = ({index}) => {
     const [canGuess, setCanGuess] = useState(true);
     const [isBingoOpen, setIsBingoOpen] = useState(false);
 
-    const {codeSelection,cracked} = useContext(AppContext);
+    const {codeSelection,cracked, gameOn} = useContext(AppContext);
 
 
     const updateCodeSelection = (index, newColour) => {
@@ -35,17 +35,21 @@ const GuessAttempt = ({index}) => {
         const newRedScore = [...redScore];
         let redIndex = 3;
         let whiteIndex = 0;
+        let matchedIndices = [];
         for(let i=0; i<4;i++){
             if(guessedColour[i] === codeSelection[i]) {
                 newRedScore[redIndex--] = COLOUR.red;
+                // remember which index we matched to avoid it next time
+                matchedIndices.push(i);
                 continue;
             }
             
             let j = guessedColour.indexOf(codeSelection[i]);
             if(j == -1){
                 continue;
-            } else {
+            } else if(matchedIndices.indexOf(j) == -1) {
                 newWhiteScore[whiteIndex++] = COLOUR.black;
+                matchedIndices.push(j);
             }
         }
 
@@ -53,14 +57,22 @@ const GuessAttempt = ({index}) => {
         setRedScore(newRedScore);
         setCanGuess(false);
         if(redIndex < 0) {
-            setIsBingoOpen(true);    
-            cracked();
+            setIsBingoOpen(true);                
         }
     }
 
     const closeBingo = () => {
         setIsBingoOpen(false);
+        cracked();
     }
+
+    useEffect(() => {
+        setWhiteScore([...initialWhiteScore]);
+        setRedScore([...initialRedScore]);    
+        setGuessedColour([...initialGuessedColour]);
+        setCanGuess(true);
+        setCanCheckGuess(false);
+    }, [gameOn])
 
     return (        
         <div className='horiz-container'>                                               
@@ -70,7 +82,7 @@ const GuessAttempt = ({index}) => {
 
             <ScoreBoard score = {redScore}/>              
             <div style={{paddingLeft:17}}>
-            <Guess updateCodeSelection={updateCodeSelection} />                              
+            <Guess updateCodeSelection={updateCodeSelection} defaultColour={guessedColour}/>                              
             </div>     
             <ScoreBoard score = {whiteScore}/>   
             <Bingo isOpen={isBingoOpen}   onClose={closeBingo} />

@@ -3,11 +3,9 @@ import {COLOUR} from "../constants"
 import ColourBox from "./ColourBox"
 
 const ScoreBoard = ({ score }) => {    
-
-    
-      
+          
     return (
-        <div className="container" >
+        <div className="container" >           
             <p style={{"float": "center"}}>
             <div style={{"width":"200px", "paddingLeft":"30px"}}>                                
                 <ColourBox colour={score[0]} />
