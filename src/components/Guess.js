@@ -3,7 +3,7 @@ import {COLOUR} from "../constants"
 import ColourSelector from './ColourSelector';
 
 
-const Guess = ({updateCodeSelection}) => {   
+const Guess = ({defaultColour, updateCodeSelection}) => {   
    
     const doUpdateCodeSelection = (index, newCode) => {
         updateCodeSelection(index, newCode);
@@ -15,16 +15,16 @@ const Guess = ({updateCodeSelection}) => {
         
         <p style={{"float": "center"}}>
             <div className='box'>
-            <ColourSelector defaultColour={COLOUR.grey} index="0" updateColourSelection = {doUpdateCodeSelection} />
+            <ColourSelector defaultColour={defaultColour[0]} index="0" updateColourSelection = {doUpdateCodeSelection} />
             </div>
             <div className='box'>
-            <ColourSelector defaultColour={COLOUR.grey} index="1" updateColourSelection = {doUpdateCodeSelection}/>
+            <ColourSelector defaultColour={defaultColour[1]} index="1" updateColourSelection = {doUpdateCodeSelection}/>
             </div>
             <div className='box'>
-            <ColourSelector defaultColour={COLOUR.grey} index="2" updateColourSelection = {doUpdateCodeSelection}/>
+            <ColourSelector defaultColour={defaultColour[2]} index="2" updateColourSelection = {doUpdateCodeSelection}/>
             </div>
             <div className='box'>
-            <ColourSelector defaultColour={COLOUR.grey} index="3" updateColourSelection = {doUpdateCodeSelection}/>
+            <ColourSelector defaultColour={defaultColour[3]} index="3" updateColourSelection = {doUpdateCodeSelection}/>
             </div>        
         </p>
       </div>        

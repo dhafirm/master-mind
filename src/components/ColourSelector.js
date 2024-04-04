@@ -1,5 +1,4 @@
-import {useState} from 'react'
-import ColourBox from './ColourBox';
+import {useState, useEffect} from 'react'
 import ColourPallet from './ColourPallet';
 import ColourCircle from './ColourCircle';
 
@@ -20,6 +19,10 @@ import ColourCircle from './ColourCircle';
         }
     };
 
+    // Update stateValue whenever initialValue changes
+    useEffect(() => {
+    setSelectedColour(defaultColour);
+  }, [defaultColour]);
 
   return (
     <div>                  
