@@ -60,16 +60,16 @@ function App() {
       <div className='center'>
           <span>
             <h2 style={{color:"red"}}>Code</h2> 
-            <button onClick={startAnotherPlayer} style={{display:gameOn? 'none':'inline'}}>Another Player</button>           
-            <button onClick={startWithComputer} style={{display:gameOn? 'none':'inline', marginLeft:50}}>Play with Computer</button>
-            <button onClick={() => setGameOn(false)} style={{display:gameOn? 'inline':'none'}}>I give up!</button>
+            <button className='primary' onClick={startAnotherPlayer} style={{display:gameOn? 'none':'inline', float:'left', marginBottom:5}}>Another Player</button>           
+            <button className='primary' onClick={startWithComputer} style={{display:gameOn? 'none':'inline', float:'right'}}>Play with Computer</button>
+            <button className='secondary' onClick={() => setGameOn(false)} style={{display:gameOn? 'inline':'none', marginLeft:110}}>I give up!</button>
           </span>  
           <div className = 'code-container' >
-            <div className='centered' style={{display:gameOn? 'none':'flex', "marginLeft":50}}>            
+            <div className='centered' style={{display:gameOn? 'none':'flex', "marginLeft":115}}>            
               <Code />  
             </div>                
             
-            <div className='centered' style={{display:!gameOn? 'none':'flex', "marginLeft":50}}> 
+            <div className='centered' style={{display:!gameOn? 'none':'flex', "marginLeft":115}}> 
               <ColourCircle colour={SHADOW_COL} />    
               <ColourCircle colour={SHADOW_COL} />    
               <ColourCircle colour={SHADOW_COL} />    

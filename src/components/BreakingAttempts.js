@@ -9,7 +9,7 @@ const BreakingAttempts = ({gameOn}) => {
     return (        
         <>
         <h3>Guessing Attempts {gameOn? 'is on':''}</h3>   
-        <span style={{"marginRight":"350px"}}>Right Place</span><span>Wrong Place</span>
+        <span style={{"marginRight":"360px"}}>Right Place</span><span>Wrong Place</span>
          {repeatedComponents}
         </>
     )
