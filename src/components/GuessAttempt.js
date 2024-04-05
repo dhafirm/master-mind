@@ -36,18 +36,23 @@ const GuessAttempt = ({index}) => {
         let redIndex = 3;
         let whiteIndex = 0;
         let matchedIndices = [];
+
+        // find the red matches first
         for(let i=0; i<4;i++){
             if(guessedColour[i] === codeSelection[i]) {
                 newRedScore[redIndex--] = COLOUR.red;
                 // remember which index we matched to avoid it next time
-                matchedIndices.push(i);
+                matchedIndices.push(i);             
+            }
+        }
+
+        // find th eblack matches next
+        for(let i=0; i<4;i++){     
+            if (matchedIndices.indexOf(i) != -1){
                 continue;
             }
-            
-            let j = guessedColour.indexOf(codeSelection[i]);
-            if(j == -1){
-                continue;
-            } else if(matchedIndices.indexOf(j) == -1) {
+            let j = codeSelection.indexOf(guessedColour[i]);
+            if(j != -1 && matchedIndices.indexOf(j) == -1){
                 newWhiteScore[whiteIndex++] = COLOUR.black;
                 matchedIndices.push(j);
             }
