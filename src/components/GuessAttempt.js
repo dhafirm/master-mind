@@ -47,14 +47,12 @@ const GuessAttempt = ({index}) => {
         }
 
         // find th eblack matches next
-        for(let i=0; i<4;i++){     
-            if (matchedIndices.indexOf(i) != -1){
-                continue;
-            }
-            let j = codeSelection.indexOf(guessedColour[i]);
-            if(j != -1 && matchedIndices.indexOf(j) == -1){
-                newWhiteScore[whiteIndex++] = COLOUR.black;
-                matchedIndices.push(j);
+        for(let i=0; i<4;i++){   
+            for(let j=0; j < 4; j++)  {                
+                if(matchedIndices.indexOf(j) == -1 && guessedColour[i] === codeSelection[j]) {
+                    newWhiteScore[whiteIndex++] = COLOUR.black;
+                    matchedIndices.push(j);
+                }
             }
         }
 
