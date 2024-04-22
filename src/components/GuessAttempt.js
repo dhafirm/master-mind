@@ -11,7 +11,7 @@ const initialGuessedColour = [COLOUR.grey,COLOUR.grey,COLOUR.grey,COLOUR.grey];
 
 const GuessAttempt = ({index}) => {
 
-    const [blackScore, setWhiteScore] = useState(initialBlackScore);
+    const [blackScore, setBlackScore] = useState(initialBlackScore);
     const [redScore, setRedScore] = useState(initialRedScore);    
     const [guessedColour, setGuessedColour] = useState(initialGuessedColour);
     const [canCheckGuess, setCanCheckGuess] = useState(false);
@@ -31,10 +31,10 @@ const GuessAttempt = ({index}) => {
     }
 
     const checkAttempt = (e) => {
-        const newWhiteScore = [...blackScore];
+        const newBlackScore = [...blackScore];
         const newRedScore = [...redScore];
         let redIndex = 3;
-        let whiteIndex = 0;
+        let blackIndex = 0;
         let matchedIndices = [];
 
         // find the red matches first
@@ -50,13 +50,13 @@ const GuessAttempt = ({index}) => {
         for(let i=0; i<4;i++){   
             for(let j=0; j < 4; j++)  {                
                 if(matchedIndices.indexOf(j) == -1 && guessedColour[i] === codeSelection[j]) {
-                    newWhiteScore[whiteIndex++] = COLOUR.black;
+                    newBlackScore[blackIndex++] = COLOUR.black;
                     matchedIndices.push(j);
                 }
             }
         }
 
-        setWhiteScore(newWhiteScore);
+        setBlackScore(newBlackScore);
         setRedScore(newRedScore);
         setCanGuess(false);
         if(redIndex < 0) {
@@ -70,7 +70,7 @@ const GuessAttempt = ({index}) => {
     }
 
     useEffect(() => {
-        setWhiteScore([...initialBlackScore]);
+        setBlackScore([...initialBlackScore]);
         setRedScore([...initialRedScore]);    
         setGuessedColour([...initialGuessedColour]);
         setCanGuess(true);
