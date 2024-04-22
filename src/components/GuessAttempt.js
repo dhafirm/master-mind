@@ -5,13 +5,14 @@ import {useState, useContext, useEffect} from 'react'
 import { AppContext } from "../App"
 import Bingo from "./Bingo"
 
-const initialWhiteScore = [ null,null,null,null];
+
+const initialBlackScore = [ null,null,null,null];
 const initialRedScore = [null,null,null,null];
 const initialGuessedColour = [COLOUR.grey,COLOUR.grey,COLOUR.grey,COLOUR.grey];
 
 const GuessAttempt = ({index}) => {
 
-    const [whiteScore, setWhiteScore] = useState(initialWhiteScore);
+    const [blackScore, setWhiteScore] = useState(initialBlackScore);
     const [redScore, setRedScore] = useState(initialRedScore);    
     const [guessedColour, setGuessedColour] = useState(initialGuessedColour);
     const [canCheckGuess, setCanCheckGuess] = useState(false);
@@ -31,7 +32,7 @@ const GuessAttempt = ({index}) => {
     }
 
     const checkAttempt = (e) => {
-        const newWhiteScore = [...whiteScore];
+        const newWhiteScore = [...blackScore];
         const newRedScore = [...redScore];
         let redIndex = 3;
         let whiteIndex = 0;
@@ -70,7 +71,7 @@ const GuessAttempt = ({index}) => {
     }
 
     useEffect(() => {
-        setWhiteScore([...initialWhiteScore]);
+        setWhiteScore([...initialBlackScore]);
         setRedScore([...initialRedScore]);    
         setGuessedColour([...initialGuessedColour]);
         setCanGuess(true);
@@ -87,7 +88,7 @@ const GuessAttempt = ({index}) => {
             <div style={{paddingLeft:17}}>
             <Guess updateCodeSelection={updateCodeSelection} defaultColour={guessedColour}/>                              
             </div>     
-            <ScoreBoard score = {whiteScore}/>   
+            <ScoreBoard score = {blackScore}/>   
             <Bingo isOpen={isBingoOpen}   onClose={closeBingo} />
         </div>
     )
