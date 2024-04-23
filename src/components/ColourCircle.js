@@ -11,7 +11,7 @@ const ColourCircle = ({colour, setSelected}) => {
     return (
         <div>           
             {/* Rectangle representation */}           
-            <div className="box"  onClick={handleClick} >
+            <div className="box"  onClick={handleClick} style = {{cursor: "pointer"}}>
                 <Circle diameter={35} fillColor={colour} />
             </div>       
         </div>

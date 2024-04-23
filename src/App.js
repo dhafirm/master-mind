@@ -58,14 +58,13 @@ function App() {
      <h1>Master Mind!</h1>     
      <AppContext.Provider value={{codeSelection, updateCodeSelection, cracked, gameOn}}>
       <div className='center'>
-          <span>
-            <h2 style={{color:"red"}}>Code</h2> 
+          <span>           
             <button className='primary' onClick={startAnotherPlayer} style={{display:gameOn? 'none':'inline', float:'left', marginBottom:5}}>Another Player</button>           
             <button className='primary' onClick={startWithComputer} style={{display:gameOn? 'none':'inline', float:'right'}}>Play with Computer</button>
             <button className='secondary' onClick={() => setGameOn(false)} style={{display:gameOn? 'inline':'none', marginLeft:110}}>Ok, I give up!</button>
           </span>  
           <div className = 'code-container' >
-            <div className='centered' style={{display:gameOn? 'none':'flex', "marginLeft":115}}>            
+            <div className='centered' style={{display:gameOn? 'none':'flex', "marginLeft":110}}>            
               <Code />  
             </div>                
             
