@@ -25,8 +25,8 @@ const GuessAttempt = ({index}) => {
         const newGusssedColour = [...guessedColour];
         newGusssedColour[index] = newColour;
         setGuessedColour(newGusssedColour);
-        const canCheck = codeSelection.indexOf(null) == -1 && 
-                         newGusssedColour.indexOf(null) == -1;
+        const canCheck = codeSelection.every(element => element !== null) && 
+                         newGusssedColour.every(element => element !== null);
         setCanCheckGuess(canCheck);
     }
 
@@ -46,10 +46,10 @@ const GuessAttempt = ({index}) => {
             }
         }
 
-        // find th eblack matches next
-        for(let i=0; i<4;i++){   
-            for(let j=0; j < 4; j++)  {                
-                if(matchedIndices.indexOf(j) == -1 && guessedColour[i] === codeSelection[j]) {
+        // find the black matches next (right colour but in the wrong place)
+        for(let i = 0; i < 4; i++){   
+            for(let j = 0; j < 4; j++)  {                
+                if(!matchedIndices.includes(j) && guessedColour[i] === codeSelection[j]) {
                     newBlackScore[blackIndex++] = COLOUR.black;
                     matchedIndices.push(j);
                 }
